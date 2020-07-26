@@ -2,6 +2,8 @@
 <a href="/locations" class="btn btn-primary">Saved Locations</a>
 <a href=<%= auth ? "/user/logout" : "/user/login" %> class="btn btn-primary"><%= auth ? "Logout" : "Login" %></a>
 
+<%- include ("partials/messages") %>
+
 <form action="/" method="POST">
     <div class="form-group">
         <label for="locationQuery">Search</label><br>
