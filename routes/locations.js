@@ -1,33 +1,29 @@
 const router = require("express").Router();
+let LocationList = require("../models/locationList.model");
 
 router.route("/").get((req, res) => {
-    res.render("locations");
+    if (!req.isAuthenticated()) {
+        return res.redirect("/user/login");
+    }
+    LocationList.find({userEmail: req.user.email})
+        .then(locationList => {
+            res.render("locations", {locations: locationList.locations});
+        }).catch(err => res.status(400).json("Error: " + err));
 });
 
-// router.route("/:id").get((req, res) => {
-//     Bookmark.find({user: req.user.email, num: parseInt(req.params.id)})
-//         .then(bookmark => res.json(bookmark))
-//         .catch(err => res.status(400).json("Error: " + err));
-// });
-
-// router.route("/").post((req, res) => {
-//     const user = req.user.email;
-//     const num = Number(req.body.num);
-//     const group = Number(req.body.group);
-//     const address = req.body.address;
-//     const title = req.body.title;
-//     const newBookmark = new Bookmark({user, num, group, address, title});
-//     newBookmark.save()
-//         .then(() => res.json(newBookmark))
-//         .catch(err => res.status(400).json("Error: " + err));
-// })
-
-// router.route("/:id").delete((req, res) => {
-//     Bookmark.find({user: req.user.email, num: parseInt(req.params.id)})
-//         .then(bookmark => res.json(bookmark))
-//         .catch(err => res.status(400).json("Error: " + err));
-//     Bookmark.deleteOne({user: req.user.email, num: parseInt(req.params.id)})
-//         .catch(err => res.status(400).json("Error: " + err));
-// });
+router.route("/:location").get((req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.redirect("/user/login");
+    }
+    LocationList.findOne({userEmail: req.user.email})
+        .then(locationList => {
+            for (let i = 0; i < locationList.locations.length; i++) {
+                if (locationList.locations[i].name === req.params.location) {
+                    return res.render("location", {location: locationList.locations[i]});
+                }
+            }
+            res.status(404).json("Error: Location not found");
+        }).catch(err => res.status(400).json("Error: " + err));
+});
 
 module.exports = router;

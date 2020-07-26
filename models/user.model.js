@@ -1,15 +1,10 @@
 const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-    name: {type: String, required: true},
-    email: {type: String, required: true},
-    password: {type: String, required: true},
-    registration_date: {type: Date, default: Date.now},
-    locations: [{
-        name: {type: String, required: true},
-        lat: {type: Number, required: true},
-        lng: {type: Number, required: true}
-    }]
+    name: String,
+    email: String,
+    password: String,
+    registrationDate: {type: Date, default: Date.now},
 });
 
 module.exports = mongoose.model("User", userSchema);

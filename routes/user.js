@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let User = require("../models/user.model");
+let LocationList = require("../models/locationList.model");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
@@ -29,14 +30,15 @@ router.route("/register").post((req, res) => {
             return res.render("register", {errors, name, email, password, password2});
         }
         const newUser = User({name, email, password});
+        LocationList({userEmail: email}).save().then().catch(err => console.log(err));
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) throw err;
                 newUser.password = hash;
                 newUser.save().then((user) => {
                     req.flash("success", "Registration successful. You can now log in");
-                    res.redirect("/users/login");
-                }).catch((err) => console.log(err));
+                    res.redirect("/user/login");
+                }).catch(err => console.log(err));
             });
         });
     });
@@ -45,7 +47,7 @@ router.route("/register").post((req, res) => {
 router.route("/login").post((req, res, next) => {
     passport.authenticate("local", {
         successRedirect: "/locations",
-        failureRedirect: "/users/login",
+        failureRedirect: "/user/login",
         failureFlash: true
     })(req, res, next);
 });
