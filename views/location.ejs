@@ -1,1 +1,10 @@
-location: <%= location %>
+<a href="/"><img src="/logo.png" alt="WeatherSearch"></a>
+<a href="/locations" class="btn btn-primary">Saved Locations</a>
+<a href="/user/logout" class="btn btn-primary">Logout</a>
+
+<% if (typeof err != "undefined") { %>
+    <p><%= err %></p>
+<% } else { %>
+    <h1><%= location.name %></h1>
+    <p><%= JSON.stringify(weatherData) %></p>
+<% } %>

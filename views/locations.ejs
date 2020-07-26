@@ -1,1 +1,26 @@
-locations: <%= locations %>
+<a href="/"><img src="/logo.png" alt="WeatherSearch"></a>
+<a href="/locations" class="btn btn-primary">Saved Locations</a>
+<a href="/user/logout" class="btn btn-primary">Logout</a>
+
+<form action="/locations" method="POST">
+    <div class="form-group">
+        <label for="locationQuery">New Location</label><br>
+        <input type="text" id="locationQuery" name="locationQuery" class="form-control" placeholder="Enter a city, zip code, or address">
+    </div>
+    <button type="submit" class="btn btn-primary">Save Location</button>
+</form>
+
+<% if (typeof err != "undefined") { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= err %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+<% } %>
+
+<h1>Saved Locations</h1>
+<% locations.forEach(location => { %>
+    <div>
+        <a href="/locations/<%= location.name %>" class="btn btn-primary"><%= location.name %></a>
+        <a href="/locations/delete/<%= location.name %>" class="btn btn-danger">Remove</a>
+    </div>
+<% }); %>

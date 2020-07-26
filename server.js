@@ -40,6 +40,7 @@ app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
     res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
@@ -50,7 +51,6 @@ app.use(express.static("./public"));
 app.use("/", require("./routes/index"));
 app.use("/user", require("./routes/user"));
 app.use("/locations", require("./routes/locations"));
-app.use("/api", require("./routes/api"));
 
 // Port
 const port = process.env.PORT || 5000;

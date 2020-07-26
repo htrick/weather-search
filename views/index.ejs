@@ -1,1 +1,20 @@
-index
+<a href="/"><img src="/logo.png" alt="WeatherSearch"></a>
+<a href="/locations" class="btn btn-primary">Saved Locations</a>
+<a href=<%= auth ? "/user/logout" : "/user/login" %> class="btn btn-primary"><%= auth ? "Logout" : "Login" %></a>
+
+<form action="/" method="POST">
+    <div class="form-group">
+        <label for="locationQuery">Search</label><br>
+        <input type="text" id="locationQuery" name="locationQuery" class="form-control" placeholder="Enter a city, zip code, or address">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<% if (typeof weatherData != "undefined") { %>
+    <p><%= locationQuery %>
+    <% if (typeof err != "undefined") { %>
+        : <%= err %></p>
+    <% } else { %>
+        </p><p><%= JSON.stringify(weatherData) %></p>
+    <% } %>
+<% } %>
