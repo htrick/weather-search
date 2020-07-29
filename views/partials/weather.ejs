@@ -1,0 +1,41 @@
+<div class="card mb-2">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Current weather: <%= weatherData.current.weather[0].description %></h5>
+        <h6 class="card-subtitle">Temperature</h6>
+        <p class="card-text"><%= ((weatherData.current.temp - 273.15) * 9 / 5 + 32).toFixed() %> &#176;F</p>
+        <h6 class="card-subtitle">Feels like</h6>
+        <p class="card-text"><%= ((weatherData.current.feels_like - 273.15) * 9 / 5 + 32).toFixed() %> &#176;F</p>
+        <h6 class="card-subtitle">Humidity</h6>
+        <p class="card-text"><%= weatherData.current.humidity %> %</p>
+        <h6 class="card-subtitle">Wind speed</h6>
+        <p class="card-text"><%= (weatherData.current.wind_speed * 2.237).toFixed(1) %> mph</p>
+    </div>
+</div>
+
+<div class="row col-sm-8 mb-2">
+<% for (let i = 0; i < 5; i++) { %>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title mb-3">In <%= i + 1 %> hour<%= i === 0 ? "" : "s" %>: <%= weatherData.hourly[i].weather[0].description %></h5>
+            <h6 class="card-subtitle">Temperature</h6>
+            <p class="card-text"><%= ((weatherData.hourly[i].temp - 273.15) * 9 / 5 + 32).toFixed() %> &#176;F</p>
+            <h6 class="card-subtitle">Feels like</h6>
+            <p class="card-text"><%= ((weatherData.hourly[i].feels_like - 273.15) * 9 / 5 + 32).toFixed() %> &#176;F</p>
+        </div>
+    </div>
+<% } %>
+</div>
+
+<div class="row col-sm-8 mb-2">
+    <% for (let i = 0; i < 5; i++) { %>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">In <%= i + 1 %> day<%= i === 0 ? "" : "s" %>: <%= weatherData.daily[i].weather[0].description %></h5>
+                <h6 class="card-subtitle">High</h6>
+                <p class="card-text"><%= ((weatherData.daily[i].temp.max - 273.15) * 9 / 5 + 32).toFixed() %> &#176;F</p>
+                <h6 class="card-subtitle">Low</h6>
+                <p class="card-text"><%= ((weatherData.daily[i].temp.min - 273.15) * 9 / 5 + 32).toFixed() %> &#176;F</p>
+            </div>
+        </div>
+    <% } %>
+    </div>

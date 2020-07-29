@@ -1,22 +1,41 @@
-<a href="/"><img src="/logo.png" alt="WeatherSearch"></a>
-<a href="/locations" class="btn btn-primary">Saved Locations</a>
-<a href=<%= auth ? "/user/logout" : "/user/login" %> class="btn btn-primary"><%= auth ? "Logout" : "Login" %></a>
+<nav class="navbar stick-top navbar-expand-lg navbar-light bg-light">
+    <a href="/"><img src="/logo.png" alt="Weather Search"></a>
+    <a class="navbar-brand h1" href="/">Weather Search</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="/locations" class="nav-link">Saved Locations</a>
+            </li>
+            <li class="nav-item">
+                <a href=<%= auth ? "/user/logout" : "/user/login" %> class="nav-link"><%= auth ? "Logout" : "Login" %></a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <%- include ("partials/messages") %>
 
-<form action="/" method="POST">
-    <div class="form-group">
-        <label for="locationQuery">Search</label><br>
-        <input type="text" id="locationQuery" name="locationQuery" class="form-control" placeholder="Enter a city, zip code, or address">
+<div class="mt-5 mb-5">
+    <form action="/" method="POST">
+        <div class="form-group">
+            <label class="h4" for="locationQuery">Search</label><br>
+            <input type="text" id="locationQuery" name="locationQuery" class="form-control" placeholder="Enter a city, zip code, or address">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+<% if (typeof err != "undefined") { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= err %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
+<% } %>
 
 <% if (typeof weatherData != "undefined") { %>
-    <p><%= locationQuery %>
-    <% if (typeof err != "undefined") { %>
-        : <%= err %></p>
-    <% } else { %>
-        </p><p><%= JSON.stringify(weatherData) %></p>
-    <% } %>
+    <h1 class="mb-2"><%= locationQuery %></h1>
+    <%- include ("partials/weather") %>
 <% } %>

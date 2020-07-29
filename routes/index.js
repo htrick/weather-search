@@ -15,7 +15,7 @@ router.route("/").post((req, res) => {
                 .then(result => {
                     res.render("index", {weatherData: result.data, locationQuery: req.body.locationQuery, auth: req.isAuthenticated()});
                 }).catch(err => res.render("index", {weatherData: "", locationQuery: req.body.locationQuery, err: err, auth: req.isAuthenticated()}));
-        }).catch(err => res.render("index", {weatherData: "", locationQuery: req.body.locationQuery, err: err, auth: req.isAuthenticated()}));
+        }).catch(err => res.render("index", {weatherData: "", locationQuery: req.body.locationQuery, err: "Location not found", auth: req.isAuthenticated()}));
 });
 
 module.exports = router;

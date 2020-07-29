@@ -1,14 +1,30 @@
-<a href="/"><img src="/logo.png" alt="WeatherSearch"></a>
-<a href="/locations" class="btn btn-primary">Saved Locations</a>
-<a href="/user/logout" class="btn btn-primary">Logout</a>
-
-<form action="/locations" method="POST">
-    <div class="form-group">
-        <label for="locationQuery">New Location</label><br>
-        <input type="text" id="locationQuery" name="locationQuery" class="form-control" placeholder="Enter a city, zip code, or address">
+<nav class="navbar stick-top navbar-expand-lg navbar-light bg-light">
+    <a href="/"><img src="/logo.png" alt="Weather Search"></a>
+    <a class="navbar-brand h1" href="/">Weather Search</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="/locations" class="nav-link">Saved Locations</a>
+            </li>
+            <li class="nav-item">
+                <a href="/user/logout" class="nav-link">Logout</a>
+            </li>
+        </ul>
     </div>
-    <button type="submit" class="btn btn-primary">Save Location</button>
-</form>
+</nav>
+
+<div class="mt-5 mb-5">
+    <form action="/locations" method="POST">
+        <div class="form-group">
+            <label class="h4" for="locationQuery">New Location</label><br>
+            <input type="text" id="locationQuery" name="locationQuery" class="form-control" placeholder="Enter a city, zip code, or address">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Location</button>
+    </form>
+</div>
 
 <% if (typeof err != "undefined") { %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -17,10 +33,13 @@
     </div>
 <% } %>
 
-<h1>Saved Locations</h1>
+<h1 class="mb-2">Saved Locations</h1>
+<div class="row col-sm-6">
 <% locations.forEach(location => { %>
-    <div>
-        <a href="/locations/<%= location.name %>" class="btn btn-primary"><%= location.name %></a>
-        <a href="/locations/delete/<%= location.name %>" class="btn btn-danger">Remove</a>
+    <div class="card card-body text-center">
+        <h5 class="card-title text-center"><%= location.name %></h5>
+        <a href="/locations/<%= location.name %>" class="card-link h6 text-center">Check Weather</a>
+        <a href="/locations/delete/<%= location.name %>" class="card-link text-danger text-center">Remove</a>
     </div>
 <% }); %>
+</div>

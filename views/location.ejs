@@ -1,10 +1,24 @@
-<a href="/"><img src="/logo.png" alt="WeatherSearch"></a>
-<a href="/locations" class="btn btn-primary">Saved Locations</a>
-<a href="/user/logout" class="btn btn-primary">Logout</a>
+<nav class="navbar stick-top navbar-expand-lg navbar-light bg-light">
+    <a href="/"><img src="/logo.png" alt="Weather Search"></a>
+    <a class="navbar-brand h1" href="/">Weather Search</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a href="/locations" class="nav-link">Saved Locations</a>
+            </li>
+            <li class="nav-item">
+                <a href="/user/logout" class="nav-link">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <% if (typeof err != "undefined") { %>
     <p><%= err %></p>
 <% } else { %>
-    <h1><%= location.name %></h1>
-    <p><%= JSON.stringify(weatherData) %></p>
+    <h1 class="mb-2"><%= location.name %></h1>
+    <%- include ("partials/weather") %>
 <% } %>
